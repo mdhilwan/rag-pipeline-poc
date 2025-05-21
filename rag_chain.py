@@ -5,7 +5,8 @@ from langchain.chains import RetrievalQA
 from langchain_community.document_loaders import TextLoader
 from langchain.text_splitter import CharacterTextSplitter
 
-loader = TextLoader("data/API_DOCS.md")
+loader = TextLoader("data/README-test.md")
+# loader = TextLoader("data/README-http-server.md")
 docs = loader.load()
 split_docs = CharacterTextSplitter(chunk_size=500, chunk_overlap=50).split_documents(docs)
 
@@ -15,6 +16,6 @@ db.save_local("embeddings")
 
 db = FAISS.load_local("embeddings", embedding_model, allow_dangerous_deserialization=True)
 
-llm = LlamaCpp(model_path="models/ggml-tinyllama-q4_0.bin", temperature=0.5, max_tokens=256, verbose=True)
+llm = LlamaCpp(model_path="models/ggml-tinyllama-q4_0.bin", temperature=0.5, max_tokens=256, verbose=False, n_ctx=2048)
 
 qa = RetrievalQA.from_chain_type(llm=llm, retriever=db.as_retriever())

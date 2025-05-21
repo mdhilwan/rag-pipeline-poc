@@ -1,10 +1,16 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from rag_chain import qa
+import uvicorn
 
 app = FastAPI()
-app.mount("/", StaticFiles(directory="ui", html=True), name="ui")
+# app.mount("/", StaticFiles(directory="ui", html=True), name="ui")
+
+@app.get("/app")
+async def root():
+    return FileResponse('ui/index.html')
 
 @app.post("/ask")
 async def ask(request: Request):
@@ -15,5 +21,4 @@ async def ask(request: Request):
     return JSONResponse(content={"result": answer})
 
 if __name__ == "__main__":
-    import uvicorn
     uvicorn.run("server:app", host="127.0.0.1", port=8000, reload=True)
