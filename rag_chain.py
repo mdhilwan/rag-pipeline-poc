@@ -5,7 +5,7 @@ from langchain.chains import RetrievalQA
 from langchain_community.document_loaders import TextLoader
 from langchain.text_splitter import CharacterTextSplitter
 
-loader = TextLoader("data/api_docs.txt")
+loader = TextLoader("data/API_DOCS.md")
 docs = loader.load()
 split_docs = CharacterTextSplitter(chunk_size=500, chunk_overlap=50).split_documents(docs)
 

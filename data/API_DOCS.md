@@ -19,5 +19,6 @@ Formats a JavaScript `Date` object into a human-readable string using a custom f
 
 - **Example:**
   ```js
-  formatDate(new Date('2023-05-21'), 'YYYY-MM-DD'); // "2023-05-21"
+  formatDate(new Date('2023-05-21'), 'YYYY-MM-D
+  D'); // "2023-05-21"
   ```
